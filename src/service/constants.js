@@ -1,0 +1,1 @@
+export const CURRENT_DATA_API = 'https://hpb.health.gov.lk/api/get-current-statistical';

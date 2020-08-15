@@ -23,3 +23,26 @@ export const fetchCurrentData = () => {
             )
     }
 };
+
+export const fetchVisitedPlaces = () => {
+    return dispatch => {
+        dispatch({
+            type: actionTypes.VISITED_PLACES_FETCH_BEGIN
+        });
+        services.getVisitedPlaces()
+            .then(
+                data => {
+                    dispatch({
+                        type: actionTypes.VISITED_PLACES_FETCH_SUCCESS,
+                        payload: data
+                    })
+                },
+                error => {
+                    dispatch({
+                        type: actionTypes.VISITED_PLACES_FETCH_FAILURE,
+                        payload: error
+                    })
+                }
+            )
+    }
+};

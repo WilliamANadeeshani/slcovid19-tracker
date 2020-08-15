@@ -9,43 +9,55 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Link from "@material-ui/core/Link";
 import Header from "./components/Header";
 import DataBanner from "./components/DataBanner";
+import SpreadAreas from "./components/SpreadAreas";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Backdrop from "@material-ui/core/Backdrop";
 
 
 class App extends React.Component {
 
     render() {
-        const {classes} = this.props;
+        const {classes, loadingCurrentData, loadingVisitedPlaces} = this.props;
         return (
-            <div className={classes.root}>
-                <CssBaseline/>
+            <React.Fragment>
+                <div className={classes.root}>
+                    <CssBaseline/>
 
-                <div className={classes.app}>
-                    <Header/>
+                    <div className={classes.app}>
+                        <Header/>
 
-                    <main className={classes.main}>
-                        <DataBanner/>
-                    </main>
+                        <main className={classes.main}>
+                            <DataBanner/>
+                            <SpreadAreas/>
+                        </main>
 
-                    <footer className={classes.footer}>
-                        <Typography variant="body2" color="textSecondary" align="center">
-                            {'Copyright © '}
-                            <Link color="inherit" href="https://material-ui.com/">
-                                Nadeeshani William
-                            </Link>{' '}
-                            {new Date().getFullYear()}
-                            {'.'}
-                        </Typography>
-                    </footer>
+                        <footer className={classes.footer}>
+                            <Typography variant="body2" color="textSecondary" align="center">
+                                {'Copyright © '}
+                                <Link color="textSecondary">
+                                    Nadeeshani William
+                                </Link>{' '}
+                                {new Date().getFullYear()}
+                                {'.'}
+                            </Typography>
+                        </footer>
+
+                    </div>
 
                 </div>
-
-            </div>
+                <Backdrop open={loadingCurrentData || loadingVisitedPlaces} className={classes.backdrop}>
+                    <CircularProgress color="inherit"/>
+                </Backdrop>
+            </React.Fragment>
         )
     }
 }
 
-const mapStateToProps = () => {
-    return {}
+const mapStateToProps = (appState) => {
+    return {
+        loadingCurrentData: appState.loadingCurrentData,
+        loadingVisitedPlaces: appState.loadingVisitedPlaces
+    }
 };
 
 const mapDispatchToProps = {};

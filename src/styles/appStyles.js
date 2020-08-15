@@ -23,5 +23,10 @@ export const styles = () => ({
         flexShrink: 0,
         background: '#263238',
         padding: '10px'
+    },
+
+    backdrop: {
+        zIndex: 1,
+        color: '#fff',
     }
 });

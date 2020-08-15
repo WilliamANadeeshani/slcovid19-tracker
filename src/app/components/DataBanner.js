@@ -7,7 +7,7 @@ import deathsGif from "../../styles/img/deaths.gif";
 import suspectGif from "../../styles/img/suspects.gif";
 import recoveredGif from "../../styles/img/recovered.gif";
 import confirmedGif from "../../styles/img/confirmed.gif";
-import testGif from "../../styles/img/test.gif";
+import testGif from "../../styles/img/testes.gif";
 
 import Card from "@material-ui/core/Card";
 import Grid from "@material-ui/core/Grid";
@@ -15,8 +15,6 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import CardHeader from "@material-ui/core/CardHeader";
 import Avatar from "@material-ui/core/Avatar";
 import {fetchCurrentData} from "../../store/actions/actionCreators";
-import Backdrop from "@material-ui/core/Backdrop";
-import CircularProgress from "@material-ui/core/CircularProgress";
 
 class DataBanner extends React.Component {
 
@@ -25,7 +23,7 @@ class DataBanner extends React.Component {
     }
 
     render() {
-        const {classes, loadingCurrentData, newCases, confirmedCases, recoveredCases, activeCases, deaths, lastUpdateTime, dailyTests} = this.props;
+        const {classes, newCases, confirmedCases, recoveredCases, activeCases, deaths, lastUpdateTime, dailyTests} = this.props;
         return (
 
             <React.Fragment>
@@ -34,81 +32,76 @@ class DataBanner extends React.Component {
                         title="Number of COVID-19 Cases in Sri Lanka"
                         subheader= {'Last updated at: ' + lastUpdateTime}
                     />
-                    <Grid container>
-                        <Grid container item xs={12}>
-                            <Grid item xs={2}>
+                        <Grid container >
+                            <Grid item xs>
                                 <Card variant="outlined" className={classes.card}>
                                     <CardHeader
                                         avatar={
-                                            <Avatar src={searchGif}/>
+                                            <Avatar src={searchGif} variant='square'/>
                                         }
                                         subheader="New Cases"
                                         title={newCases}
                                     />
                                 </Card>
                             </Grid>
-                            <Grid item xs={2}>
+                            <Grid item xs>
                                 <Card variant="outlined" className={classes.card}>
                                     <CardHeader
                                         avatar={
-                                            <Avatar src={confirmedGif}  />
+                                            <Avatar src={confirmedGif}  variant='square'/>
                                         }
                                         subheader="Confirmed Cases"
                                         title={confirmedCases}
                                     />
                                 </Card>
                             </Grid>
-                            <Grid item xs={2}>
+                            <Grid item xs>
                                 <Card variant="outlined" className={classes.card}>
                                     <CardHeader
                                         avatar={
-                                            <Avatar src={recoveredGif}/>
+                                            <Avatar src={recoveredGif} variant='square'/>
                                         }
                                         subheader="Recovered Cases"
                                         title={recoveredCases}
                                     />
                                 </Card>
                             </Grid>
-                            <Grid item xs={2}>
+                            <Grid item xs>
                                 <Card variant="outlined" className={classes.card}>
                                     <CardHeader
                                         avatar={
-                                            <Avatar src={suspectGif}/>
+                                            <Avatar src={suspectGif} variant='square'/>
                                         }
                                         subheader="Active Cases"
                                         title={activeCases}
                                     />
                                 </Card>
                             </Grid>
-                            <Grid item xs={2}>
+                            <Grid item xs>
                                 <Card variant="outlined" className={classes.card}>
                                     <CardHeader
                                         avatar={
-                                            <Avatar src={deathsGif}/>
+                                            <Avatar src={deathsGif} variant='square'/>
                                         }
                                         subheader="Deaths"
                                         title={deaths}
                                     />
                                 </Card>
                             </Grid>
-                            <Grid item xs={2}>
+                            <Grid item xs>
                                 <Card variant="outlined" className={classes.card}>
                                     <CardHeader
                                         avatar={
-                                            <Avatar src={testGif}/>
+                                            <Avatar src={testGif} variant='square'/>
                                         }
-                                        subheader={'Tests (' + dailyTests.date + ')'}
-                                        title={dailyTests.count}
+                                        subheader= {"Tests Per Day"}
+                                        title={dailyTests.count + ' (' + dailyTests.date + ')'}
                                     />
                                 </Card>
                             </Grid>
-
-                        </Grid>
                     </Grid>
                 </Card>
-                <Backdrop open={loadingCurrentData} className={classes.backdrop}>
-                    <CircularProgress   color="inherit" />
-                </Backdrop>
+
             </React.Fragment>
         )
     }
@@ -116,7 +109,6 @@ class DataBanner extends React.Component {
 
 const mapStateToProps = (appState) => {
     return {
-        loadingCurrentData: appState.loadingCurrentData,
         newCases: appState.newCases,
         confirmedCases: appState.confirmedCases,
         recoveredCases: appState.recoveredCases,

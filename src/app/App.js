@@ -17,7 +17,7 @@ import Backdrop from "@material-ui/core/Backdrop";
 class App extends React.Component {
 
     render() {
-        const {classes, loadingCurrentData, loadingVisitedPlaces} = this.props;
+        const {classes, loadingCurrentData, loadingVisitedPlaces, dataLoading} = this.props;
         return (
             <React.Fragment>
                 <div className={classes.root}>
@@ -45,7 +45,7 @@ class App extends React.Component {
                     </div>
 
                 </div>
-                <Backdrop open={loadingCurrentData || loadingVisitedPlaces} className={classes.backdrop}>
+                <Backdrop open={loadingCurrentData || loadingVisitedPlaces || dataLoading} className={classes.backdrop}>
                     <CircularProgress color="inherit"/>
                 </Backdrop>
             </React.Fragment>
@@ -56,7 +56,8 @@ class App extends React.Component {
 const mapStateToProps = (appState) => {
     return {
         loadingCurrentData: appState.loadingCurrentData,
-        loadingVisitedPlaces: appState.loadingVisitedPlaces
+        loadingVisitedPlaces: appState.loadingVisitedPlaces,
+        dataLoading: appState.dataLoading
     }
 };
 

@@ -1,5 +1,5 @@
-import {CURRENT_DATA_API, VISITED_PLACES_API} from "./constants";
-import {currentDataComposer, visitedPlacesDataComposer} from "./controller";
+import {CURRENT_DATA_API, VISITED_PLACES_API, FORM_DATA_SUBMIT_API} from "./constants";
+import {currentDataComposer, formSubmitDataComposer, visitedPlacesDataComposer} from "./controller";
 
 let getCurrentData = () => {
     const URL = CURRENT_DATA_API;
@@ -27,7 +27,22 @@ let getVisitedPlaces = () => {
         })
 };
 
+let getFormDataSubmit = (name, mobile) => {
+    const URL = FORM_DATA_SUBMIT_API;
+    // (unused parameters) due to limitation of mock service ->. cannot create free POST mock service with request payload.
+    const requestOptions = {
+        method: 'POST'
+    };
+
+    return fetch(URL, requestOptions)
+        .then(formSubmitDataComposer)
+        .then(data => {
+            return data;
+        });
+};
+
 export const services = {
     getCurrentData,
-    getVisitedPlaces
+    getVisitedPlaces,
+    getFormDataSubmit
 };

@@ -10,11 +10,16 @@ const initialState = {
     loadingCurrentData: false,
     dailyTests: {date: null, count: 0},
     visitedPlaces: [],
-    loadingVisitedPlaces: false
+    loadingVisitedPlaces: false,
+    formDataResponse: '',
+    formDataSubmit: false,
+    dataLoading: false
+
 };
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
+        /** current data fetching */
         case actionTypes.CURRENT_DATA_FETCH_BEGIN:
             return{
                 ...state,
@@ -32,8 +37,13 @@ const reducer = (state = initialState, action) => {
                 lastUpdateTime: action.payload.lastUpdateTime,
                 dailyTests: action.payload.dailyTests
             };
+        case actionTypes.CURRENT_DATA_FETCH_FAILURE:
+            return{
+                ...state,
+                loadingCurrentData: false
+            };
 
-
+        /** visited place data fetching */
         case actionTypes.VISITED_PLACES_FETCH_BEGIN:
             return{
                 ...state,
@@ -44,6 +54,39 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 loadingVisitedPlaces: false,
                 visitedPlaces: action.payload
+            };
+
+        case actionTypes.VISITED_PLACES_FETCH_FAILURE:
+            return{
+                ...state,
+                loadingVisitedPlaces: true
+            };
+
+
+        /** form data submitting */
+        case actionTypes.FORM_DATA_SUBMIT_BEGIN:
+            return{
+                ...state,
+                dataLoading: true
+            };
+        case actionTypes.FORM_DATA_SUBMIT_SUCCESS:
+            return{
+                ...state,
+                formDataSubmit: true,
+                formDataResponse: action.payload,
+                dataLoading: false
+            };
+        case actionTypes.FORM_DATA_SUBMIT_FAILURE:
+            return{
+                ...state,
+                formDataSubmit: true,
+                formDataResponse: action.payload,
+                dataLoading: false
+            };
+        case actionTypes.CLOSE_DIALOG:
+            return{
+                ...state,
+                formDataSubmit: false
             };
 
         default:

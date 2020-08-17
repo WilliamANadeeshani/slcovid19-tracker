@@ -25,7 +25,11 @@ export const styles = () => ({
 
     tableContainer: {
         margin: '10px',
-        maxHeight: '427px'
+        maxHeight: '428px'
+    },
+
+    formDiv: {
+        marginTop: '20px'
     }
 
 });

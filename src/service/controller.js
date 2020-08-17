@@ -34,3 +34,15 @@ export const visitedPlacesDataComposer = (text) => {
         return Promise.resolve(JSON.parse(res));
     });
 };
+
+export const formSubmitDataComposer = (text) => {
+    return text.text().then(res => {
+        if (!text.ok) {
+            if (text.status === 400) {
+                return Promise.reject(res);
+            }
+            return Promise.reject(res);
+        }
+        return Promise.resolve(JSON.parse(res).msg);
+    });
+};

@@ -46,3 +46,34 @@ export const fetchVisitedPlaces = () => {
             )
     }
 };
+
+export const submitData = (name, mobile) => {
+    return dispatch => {
+        dispatch({
+            type: actionTypes.FORM_DATA_SUBMIT_BEGIN
+        });
+        services.getFormDataSubmit(name, mobile)
+            .then(
+                data => {
+                    dispatch({
+                        type: actionTypes.FORM_DATA_SUBMIT_SUCCESS,
+                        payload: data
+                    })
+                },
+                error => {
+                    dispatch({
+                        type: actionTypes.FORM_DATA_SUBMIT_FAILURE,
+                        payload: error
+                     })
+                }
+            )
+    }
+};
+
+export const closeDialog = () => {
+    return dispatch => {
+        dispatch({
+            type: actionTypes.CLOSE_DIALOG
+        });
+    }
+};

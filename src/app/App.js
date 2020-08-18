@@ -12,12 +12,13 @@ import DataBanner from "./components/DataBanner";
 import SpreadAreas from "./components/SpreadAreas";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Backdrop from "@material-ui/core/Backdrop";
+import Alert from '@material-ui/lab/Alert';
 
 
 class App extends React.Component {
 
     render() {
-        const {classes, loadingCurrentData, loadingVisitedPlaces, dataLoading} = this.props;
+        const {classes, loadingCurrentData, loadingVisitedPlaces, dataLoading, isServiceError, serviceErrorMessage} = this.props;
         return (
             <React.Fragment>
                 <div className={classes.root}>
@@ -25,6 +26,10 @@ class App extends React.Component {
 
                     <div className={classes.app}>
                         <Header/>
+
+                        {
+                            (isServiceError) ? <Alert severity="error">{serviceErrorMessage}</Alert> : null
+                        }
 
                         <main className={classes.main}>
                             <DataBanner/>
@@ -48,6 +53,7 @@ class App extends React.Component {
                 <Backdrop open={loadingCurrentData || loadingVisitedPlaces || dataLoading} className={classes.backdrop}>
                     <CircularProgress color="inherit"/>
                 </Backdrop>
+
             </React.Fragment>
         )
     }
@@ -57,7 +63,9 @@ const mapStateToProps = (appState) => {
     return {
         loadingCurrentData: appState.loadingCurrentData,
         loadingVisitedPlaces: appState.loadingVisitedPlaces,
-        dataLoading: appState.dataLoading
+        dataLoading: appState.dataLoading,
+        isServiceError: appState.isServiceError,
+        serviceErrorMessage: appState.serviceErrorMessage
     }
 };
 

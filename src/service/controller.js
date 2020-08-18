@@ -4,9 +4,9 @@ export const currentDataComposer = (text) => {
     return text.text().then(res => {
         if (!text.ok) {
             if (text.status === 400) {
-                return Promise.reject(res);
+                return Promise.reject('Service not found.');
             }
-            return Promise.reject(res);
+            return Promise.reject('Service error.');
         }
 
         let currentData = (JSON.parse(res)).data;
@@ -27,9 +27,9 @@ export const visitedPlacesDataComposer = (text) => {
     return text.text().then(res => {
         if (!text.ok) {
             if (text.status === 400) {
-                return Promise.reject(res);
+                return Promise.reject('Service not found.');
             }
-            return Promise.reject(res);
+            return Promise.reject('Service error.');
         }
         return Promise.resolve(JSON.parse(res));
     });
@@ -39,9 +39,9 @@ export const formSubmitDataComposer = (text) => {
     return text.text().then(res => {
         if (!text.ok) {
             if (text.status === 400) {
-                return Promise.reject(res);
+                return Promise.reject('Service not found.');
             }
-            return Promise.reject(res);
+            return Promise.reject('Service error.');
         }
         return Promise.resolve(JSON.parse(res).msg);
     });

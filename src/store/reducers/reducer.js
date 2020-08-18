@@ -13,7 +13,9 @@ const initialState = {
     loadingVisitedPlaces: false,
     formDataResponse: '',
     formDataSubmit: false,
-    dataLoading: false
+    dataLoading: false,
+    isServiceError: false,
+    serviceErrorMessage: ''
 
 };
 
@@ -40,7 +42,9 @@ const reducer = (state = initialState, action) => {
         case actionTypes.CURRENT_DATA_FETCH_FAILURE:
             return{
                 ...state,
-                loadingCurrentData: false
+                loadingCurrentData: false,
+                isServiceError: true,
+                serviceErrorMessage: action.payload
             };
 
         /** visited place data fetching */
@@ -55,11 +59,12 @@ const reducer = (state = initialState, action) => {
                 loadingVisitedPlaces: false,
                 visitedPlaces: action.payload
             };
-
         case actionTypes.VISITED_PLACES_FETCH_FAILURE:
             return{
                 ...state,
-                loadingVisitedPlaces: true
+                loadingVisitedPlaces: false,
+                isServiceError: true,
+                serviceErrorMessage: action.payload
             };
 
 
@@ -81,8 +86,12 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 formDataSubmit: true,
                 formDataResponse: action.payload,
-                dataLoading: false
+                dataLoading: false,
+                isServiceError: true,
+                serviceErrorMessage: action.payload
             };
+
+
         case actionTypes.CLOSE_DIALOG:
             return{
                 ...state,
